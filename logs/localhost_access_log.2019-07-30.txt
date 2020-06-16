@@ -1,0 +1,11 @@
+0:0:0:0:0:0:0:1 - - [30/Jul/2019:16:24:57 +0800] "GET /hktv_imax HTTP/1.1" 302 -
+0:0:0:0:0:0:0:1 - - [30/Jul/2019:16:24:57 +0800] "GET /hktv_imax/ HTTP/1.1" 302 -
+0:0:0:0:0:0:0:1 - - [30/Jul/2019:16:24:57 +0800] "GET /hktv_imax/imax/ HTTP/1.1" 404 1116
+0:0:0:0:0:0:0:1 - - [30/Jul/2019:16:24:57 +0800] "GET /hktv_imax/ HTTP/1.1" 302 -
+0:0:0:0:0:0:0:1 - - [30/Jul/2019:16:24:57 +0800] "GET /hktv_imax/imax/ HTTP/1.1" 404 1116
+0:0:0:0:0:0:0:1 - - [30/Jul/2019:16:28:41 +0800] "GET /hktv_imax/imax/ HTTP/1.1" 200 569
+0:0:0:0:0:0:0:1 - - [30/Jul/2019:16:28:41 +0800] "GET /hktv_imax/resources/static/css/main.f01aa8d3.css HTTP/1.1" 200 598356
+0:0:0:0:0:0:0:1 - - [30/Jul/2019:16:28:41 +0800] "GET /hktv_imax/resources/static/js/main.017e78ac.js HTTP/1.1" 200 8564301
+0:0:0:0:0:0:0:1 - - [30/Jul/2019:16:28:41 +0800] "GET /hktv_imax/user HTTP/1.1" 200 5
+0:0:0:0:0:0:0:1 - - [30/Jul/2019:16:28:41 +0800] "GET /hktv_imax/frontend/getMachineId HTTP/1.1" 200 59
+0:0:0:0:0:0:0:1 - - [30/Jul/2019:16:28:41 +0800] "GET /hktv_imax/resources/img/imax-logo.png HTTP/1.1" 200 4602

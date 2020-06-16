@@ -1,0 +1,88 @@
+version: '2'
+
+services:
+  elasticsearch:
+    build:
+      context: elasticsearch/
+      args:
+        ELK_VERSION: $ELK_VERSION
+    volumes:
+      - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+      ELASTIC_PASSWORD: changeme
+    networks:
+      - elk
+
+  logstash:
+    build:
+      context: logstash/
+      args:
+        ELK_VERSION: $ELK_VERSION
+    volumes:
+      - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
+      - ./logstash/pipeline:/usr/share/logstash/pipeline:ro
+      - ./logstash/output-files:/usr/share/logstash/output-files
+      - ./logstash/config/pipelines.yml:/usr/share/logstash/config/pipelines.yml:ro
+    ports:
+      - "5000:5000"
+      - "5044:5044"
+      - "4567:4567"
+      - "31311:31311"
+    environment:
+      LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+    networks:
+      - elk
+    depends_on:
+      - elasticsearch
+  filebeat:
+    hostname: filebeat
+    build: 
+      context: fileBeat/
+      args:
+        ELK_VERSION: $ELK_VERSION
+    volumes:
+      - ./logs:/usr/share/filebeat/dockerlogs:ro
+      - ./fileBeat/conf/filebeat.yml:/usr/share/filebeat/filebeat.yml
+    networks:
+      - elk
+    depends_on:
+    - elasticsearch
+  kibana:
+    build:
+      context: kibana/
+      args:
+        ELK_VERSION: $ELK_VERSION
+    volumes:
+      - ./kibana/config/kibana.yml:/usr/share/kibana/config/kibana.yml:ro
+    ports:
+      - "5601:5601"
+    networks:
+      - elk
+    depends_on:
+      - elasticsearch
+  # nodeweb:
+  #   working_dir: /home/node/app
+  #   build:
+  #     context: node/
+  #     args:
+  #       ELK_VERSION: $ELK_VERSION
+  #   environment:
+  #     - NODE_ENV=production
+  #   volumes:
+  #     - ./node/config/package.json:/home/node/app/package.json
+  #     - ./node/server.js:/home/node/app/server.js
+  #   ports:
+  #     - "8888:8888"
+  #   networks:
+  #     - elk
+  #   depends_on:
+  #     - logstash
+  #   command: "npm start"
+
+networks:
+  elk:
+    driver: bridge

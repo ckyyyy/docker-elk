@@ -1,0 +1,20 @@
+filebeat.inputs:
+- type: log
+  paths:
+    - /usr/share/filebeat/dockerlogs/IMAX-ECOM-SKU_STOCK_*.csv 
+  fields:
+    index:  csv
+- type: log
+  paths:
+    - /usr/share/filebeat/dockerlogs/hktv-imax*.log
+  fields:
+    index:  logs
+- type: log
+  paths:
+    - /usr/share/filebeat/dockerlogs/localhost_access_log.*.txt
+  fields:
+    index:  access
+    
+# send to logstash
+output.logstash:
+  hosts: ["logstash:5044"]
